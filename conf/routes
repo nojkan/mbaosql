@@ -5,11 +5,13 @@
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
 
+GET     /api/v1/stores				controllers.StoreController.getAllStores
 GET     /api/v1/stores/:storeid     controllers.StoreController.getStoreById(storeid: String)
 POST    /api/v1/stores				controllers.StoreController.postStore
 DELETE  /api/v1/stores/:storeid     controllers.StoreController.deleteStoreById(storeid: String)
 PUT 	/api/v1/stores/:storeid     controllers.StoreController.updateStoreById(storeid: String)
 
+GET     /api/v1/products				controllers.StoreController.getAllProducts
 GET     /api/v1/products/:productid     controllers.ProductController.getProductById(productid: String)
 POST    /api/v1/products				controllers.ProductController.postProduct
 DELETE  /api/v1/products/:productid     controllers.ProductController.deleteProductById(productid: String)

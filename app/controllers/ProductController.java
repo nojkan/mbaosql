@@ -17,6 +17,12 @@ public class ProductController extends Controller {
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
      */
+    public Result getAllProducts() {
+        java.util.List<models.Product> products = new play.db.ebean.Model.Finder(String.class, models.Product.class).all();
+        return ok(play.libs.Json.toJson(products);
+    }
+    
+
     public Result getProductById(String productid) {
         return ok(index.render("Your new application is ready."));
     }

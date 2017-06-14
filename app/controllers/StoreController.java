@@ -17,6 +17,12 @@ public class StoreController extends Controller {
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
      */
+    
+    public Result getAllStores() {
+        java.util.List<models.Store> stores = new play.db.ebean.Model.Finder(String.class, models.Store.class).all();
+        return ok(play.libs.Json.toJson(stores);
+    }
+
     public Result getStoreById(String storeid) {
         return ok(index.render("Your new application is ready."));
     }
