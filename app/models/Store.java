@@ -22,14 +22,16 @@ public class Store extends Model {
     public String name;
 
     public String picture;
+    
+    public int vat;
+    public String currency;
+    public String merchantkey;
 
+   
+    public Stock stock;
     
     
-    @Formats.DateTime(pattern="yyyy-MM-dd")
-    public Date introduced;
     
-    @Formats.DateTime(pattern="yyyy-MM-dd")
-    public Date discontinued;
     
    // @ManyToOne
    // public Company company;
@@ -48,7 +50,7 @@ public class Store extends Model {
      * @param order Sort order (either or asc or desc)
      * @param filter Filter applied on the name column
      */
-   public static Page<Store> page(int page, int pageSize, String sortBy, String order, String filter) {
+   /*public static Page<Store> page(int page, int pageSize, String sortBy, String order, String filter) {
         return 
             find.where()
                 .ilike("name", "%" + filter + "%")
@@ -57,6 +59,6 @@ public class Store extends Model {
                 .findPagingList(pageSize)
                 .setFetchAhead(false)
                 .getPage(page);
-    }
+    }*/
     
 }

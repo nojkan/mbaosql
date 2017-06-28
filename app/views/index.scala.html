@@ -2,7 +2,8 @@
  * This template takes a single argument, a String containing a
  * message to display.
  *@
-@(message: String)
+@(message: String, productForm: Form[Product])
+@implicitFieldConstructor = @{ helper.FieldConstructor(twitterBootstrapInput.render) }
 
 @*
  * Call the `main` template with two arguments. The first
@@ -11,10 +12,38 @@
  *@
 @main("Welcome to Play") {
 
-    @*
-     * Get an `Html` object by calling the built-in Play welcome
-     * template and passing a `String` message.
-     *@
-    @play20.welcome(message, style = "Java")
+   <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a id="titleLink" class="brand" href="/">@message.toUpperCase</a>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="container">-->
+    <div class="container">
+     <table class="table table-striped">
+     <thead>
+      <tr>
+        <th>ref</th><th>name</th>
+      </tr>
+    </thead>
+
+        <tbody id="products"> </tbody>
+
+     </table>
+   
+       
+        @helper.form(action = routes.ProductController.addProduct(), 'class -> "well form-horizontal") {
+            @helper.inputText(productForm("refproduct"), '_label -> "ids")
+            @helper.inputText(productForm("name"), '_label -> "names")
+            @helper.inputText(productForm("picture"), '_label -> "picture")
+            @helper.inputText(productForm("creationDate"), '_label -> "creation date")
+            @helper.inputText(productForm("stock"), '_label -> "stock")
+            <div class="controls">
+                <input type="submit" class="btn btn-primary"/>
+            </div>
+        }
+    </div>
 
 }

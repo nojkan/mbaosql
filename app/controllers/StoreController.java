@@ -5,6 +5,10 @@ import play.mvc.*;
 
 import views.html.*;
 
+import com.avaje.ebean.Model;
+
+import models.Product;
+
 /**
  * This controller contains an action to handle HTTP requests
  * to the application's home page.
@@ -19,24 +23,28 @@ public class StoreController extends Controller {
      */
     
     public Result getAllStores() {
-        java.util.List<models.Store> stores = new play.db.ebean.Model.Finder(String.class, models.Store.class).all();
-        return ok(play.libs.Json.toJson(stores);
+        java.util.List<models.Store> stores = new com.avaje.ebean.Model.Finder(String.class, models.Store.class).all();
+        return ok(play.libs.Json.toJson(stores));
     }
 
     public Result getStoreById(String storeid) {
-        return ok(index.render("Your new application is ready."));
+        return redirect(routes.HomeController.index());
+
     }
 
 
     public Result postStore() {
-        return ok(index.render("Your new application is ready."));
+        return redirect(routes.HomeController.index());
+
     }
 
     public Result deleteStoreById(String storeid) {
-        return ok(index.render("Your new application is ready."));
+        return redirect(routes.HomeController.index());
+
     }
     public Result updateStoreById(String storeid) {
-        return ok(index.render("Your new application is ready."));
+       return redirect(routes.HomeController.index());
+
     }
 
 

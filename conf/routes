@@ -5,17 +5,17 @@
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
 
-GET     /api/v1/stores				controllers.StoreController.getAllStores
-GET     /api/v1/stores/:storeid     controllers.StoreController.getStoreById(storeid: String)
-POST    /api/v1/stores				controllers.StoreController.postStore
-DELETE  /api/v1/stores/:storeid     controllers.StoreController.deleteStoreById(storeid: String)
-PUT 	/api/v1/stores/:storeid     controllers.StoreController.updateStoreById(storeid: String)
+GET     /stores				controllers.StoreController.getAllStores
+GET     /stores/:storeid     controllers.StoreController.getStoreById(storeid: String)
+POST    /stores				controllers.StoreController.postStore
+DELETE  /stores/:storeid     controllers.StoreController.deleteStoreById(storeid: String)
+PUT 	/stores/:storeid     controllers.StoreController.updateStoreById(storeid: String)
 
-GET     /api/v1/products				controllers.StoreController.getAllProducts
-GET     /api/v1/products/:productid     controllers.ProductController.getProductById(productid: String)
-POST    /api/v1/products				controllers.ProductController.postProduct
-DELETE  /api/v1/products/:productid     controllers.ProductController.deleteProductById(productid: String)
-PUT 	/api/v1/products/:productid     controllers.ProductController.updateProductById(productid: String)
+GET     /products				controllers.ProductController.getAllProducts
+GET     /products/:productid     controllers.ProductController.getProductById(productid: String)
+POST    /products				controllers.ProductController.addProduct
+DELETE  /products/:productid     controllers.ProductController.deleteProductById(productid: String)
+PUT 	/products/:productid     controllers.ProductController.updateProductById(productid: String)
 
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
