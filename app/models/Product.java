@@ -25,19 +25,16 @@ public class Product extends Model {
     @Column(name="refproduct")
     public String refproduct;
 
-  
+    @Constraints.Required
     @Column(name="name")
     public String name;
 
     @Column(name="picture")
     public String picture;
 
-    @Formats.DateTime(pattern="yyyy-MM-dd")
+    @Formats.DateTime(pattern="yyyy.MM.dd")
     @Column(name="creationdate")
     public Date creationdate;
-
-    @Column(name="stock")
-    public String stock;
 
 
     public String getRef(){
@@ -73,14 +70,7 @@ public class Product extends Model {
         this.creationdate = creationdate;
     }
 
-    public String getStock(){
-        return stock;
-    }
-
-    public void setStock(String stock){
-        this.stock = stock;
-    }
-
+  
     /**
      * Generic query helper for entity Product with refproduct string
      */

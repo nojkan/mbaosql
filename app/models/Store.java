@@ -28,8 +28,6 @@ public class Store extends Model {
     public String merchantkey;
 
    
-    public Stock stock;
-    
     
     
     

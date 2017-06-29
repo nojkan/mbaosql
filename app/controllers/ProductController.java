@@ -2,7 +2,7 @@ package controllers;
 
 
 import play.mvc.*;
-import services.ProductService;
+import services.*;
 
 import views.html.*;
 import com.avaje.ebean.Model;
@@ -13,10 +13,6 @@ import play.libs.Json;
 import play.libs.Json.*;    
 
 import com.fasterxml.jackson.databind.JsonNode;
-
-import javax.inject.Inject;
-import play.db.*;
-
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -30,8 +26,6 @@ public class ProductController extends Controller {
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
      */
-
-    
     public Result getAllProducts() {
         java.util.List<models.Product> products = new com.avaje.ebean.Model.Finder(String.class, models.Product.class).all();
         return ok(play.libs.Json.toJson(products));
@@ -40,16 +34,16 @@ public class ProductController extends Controller {
 
     public Result getProductById(String productid) {
 
+        return redirect(routes.HomeController.index());
 
-        
-        try {
-        String sproduct = services.ProductService.selectProductByID(productid);
+        /*try {
+        String sproduct = ProductService.selectProductByID(productid);
         return ok(sproduct);
     
         } catch (java.sql.SQLException sqle){
             System.out.println(sqle.getMessage());
             return ok("sqle.getMessage()");
-        } 
+        } */
         
     }
 
