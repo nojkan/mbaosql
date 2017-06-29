@@ -15,7 +15,7 @@ GET     /products				controllers.ProductController.getAllProducts
 GET     /products/:productid     controllers.ProductController.getProductById(productid: String)
 POST    /products				controllers.ProductController.addProduct
 DELETE  /products/:productid     controllers.ProductController.deleteProductById(productid: String)
-PUT 	/products/:productid     controllers.ProductController.updateProductById(productid: String)
+PUT 	/products     controllers.ProductController.updateProductById()
 
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count

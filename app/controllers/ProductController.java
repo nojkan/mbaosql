@@ -13,12 +13,22 @@ import play.libs.Json;
 import play.libs.Json.*;    
 
 import com.fasterxml.jackson.databind.JsonNode;
+import javax.inject.Inject;
+import play.db.*;
 
 /**
  * This controller contains an action to handle HTTP requests
  * to the application's home page.
  */
 public class ProductController extends Controller {
+
+
+    private static Database db;
+    
+    @Inject
+    public ProductController(Database db){
+        this.db = db;
+    }
 
     /**
      * An action that renders an HTML page with a welcome message.
@@ -34,16 +44,17 @@ public class ProductController extends Controller {
 
     public Result getProductById(String productid) {
 
-        return redirect(routes.HomeController.index());
+       // return redirect(routes.HomeController.index());
 
-        /*try {
-        String sproduct = ProductService.selectProductByID(productid);
+        try {
+        String sproduct = ProductService.selectProductByID(db, productid);
         return ok(sproduct);
+        //TODO Add Content type Application/Json
     
         } catch (java.sql.SQLException sqle){
             System.out.println(sqle.getMessage());
             return ok("sqle.getMessage()");
-        } */
+        } 
         
     }
 
@@ -64,12 +75,37 @@ public class ProductController extends Controller {
 
 
     public Result deleteProductById(String productid) {
-          Product.find.ref(productid).delete();
+        
+        Product.find.ref(productid).delete();
 
         return ok(""+productid+" deleted");
     }
     
-    public Result updateProductById(String productid) {
-        return redirect(routes.HomeController.index());
+    public Result updateProductById() {
+
+        String jsRqB = request().body().asText();
+        System.out.println("JsRqB as text" + jsRqB);
+
+
+
+        try {
+
+         //calling PUT with Body :
+        /*     [{
+        "refproduct": "p9",
+        "name": "product numéro 9",
+        "picture": "no picture",
+        "creationdate": "2017-05-11T00:00:00"
+        }]*/
+
+           
+        String returnCode = ProductService.updateProductRecordsFromJson(db, jsRqB);
+        return ok(returnCode);
+    
+        } catch (java.sql.SQLException sqle){
+            System.out.println(sqle.getMessage());
+            return ok("sqle.getMessage()");
+        } 
+        //return redirect(routes.HomeController.index());
     }
 }
