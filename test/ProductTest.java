@@ -19,6 +19,9 @@ import play.twirl.api.Content;
 import static play.test.Helpers.*;
 import static org.junit.Assert.*;
 
+import models.Product;
+import java.util.Date;
+
 
 /**
  *
@@ -46,5 +49,23 @@ public class ProductTest {
         assertTrue(html.body().contains("Your new application is ready."));*/
     }
 
+    @Test
+    public void create() {
+        running(Helpers.fakeApplication(), new Runnable() {
+            public void run() {
+                Product product = new Product();        
+                product.refproduct= "pT";
+                product.name= "name producit test";
+                product.picture="none";
+                product.creationdate=new Date();
+
+
+                product.save();
+                assertThat(product.refproduct).isNotNull();
+            }
+        });
+    }
+
 
 }
+
