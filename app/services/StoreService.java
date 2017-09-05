@@ -105,7 +105,7 @@ public class StoreService  {
 		}
 
 
-	public static ArrayNode selectAllStoreJSON(Database db) throws SQLException {
+	public static ArrayNode selectAllStoreJSON(Database db, Integer limit, Integer offset) throws SQLException {
 
 	
 	
@@ -114,10 +114,19 @@ public class StoreService  {
 		PreparedStatement preparedStatement = null;
 		String result="vide2";
 		ArrayNode jsResult = null;
+		String selectSQL = "";
 
+		if (limit == null && offset == null){
 
+		 selectSQL = "SELECT row_to_json(STORE) FROM STORE";
 
-		String selectSQL = "SELECT row_to_json(STORE) FROM STORE";
+		} else {
+
+			selectSQL = "SELECT row_to_json(STORE) FROM STORE LIMIT " + limit.intValue() + " OFFSET " + offset.intValue();
+			System.out.println("fin get Sconnection");
+		}
+
+		System.out.println("select sql : " + selectSQL);
 
 		try {
 			System.out.println("debut try ");

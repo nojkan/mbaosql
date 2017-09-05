@@ -39,8 +39,19 @@ public class StoreController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     
-    public Result getAllStores() {
-        java.util.List<models.Store> stores = new com.avaje.ebean.Model.Finder(String.class, models.Store.class).all();
+    public Result getAllStores(Integer limit, Integer offset) {
+
+        java.util.List<models.Store> stores;
+
+     
+        if (limit != null && offset != null){
+            
+            stores = new com.avaje.ebean.Model.Finder(String.class, models.Store.class).setMaxRows(limit).setFirstRow(offset).findList();
+            //stores = new com.avaje.ebean.Model.Finder(String.class, models.Store.class).findPagedList(offset.intValue(),limit.intValue());
+        
+        } else {
+            stores = new com.avaje.ebean.Model.Finder(String.class, models.Store.class).all();
+        }
         return ok(play.libs.Json.toJson(stores));
     }
 
@@ -59,9 +70,9 @@ public class StoreController extends Controller {
 
     }
 
-    public Result getAllStoresInJson(){
+    public Result getAllStoresInJson(Integer limit, Integer offset){
         try {
-            JsonNode sstore = StoreService.selectAllStoreJSON(db);
+            JsonNode sstore = StoreService.selectAllStoreJSON(db, limit, offset);
             return ok(sstore);
         } catch (java.sql.SQLException sqle){
             System.out.println(sqle.getMessage());
