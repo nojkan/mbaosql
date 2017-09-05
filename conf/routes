@@ -6,6 +6,7 @@
 GET     /                           controllers.HomeController.index
 
 GET     /stores				controllers.StoreController.getAllStores
+GET     /stores/json				controllers.StoreController.getAllStoresInJson
 GET     /stores/:storeid     controllers.StoreController.getStoreById(storeid: String)
 POST    /stores				controllers.StoreController.postStore
 DELETE  /stores/:storeid     controllers.StoreController.deleteStoreById(storeid: String)

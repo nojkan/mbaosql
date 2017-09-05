@@ -2,18 +2,35 @@ package controllers;
 
 
 import play.mvc.*;
+import services.*;
 
 import views.html.*;
-
 import com.avaje.ebean.Model;
+import models.Store;
 
-import models.Product;
+import play.libs.Json;  
+import play.libs.Json.*;    
+
+import com.fasterxml.jackson.databind.JsonNode;
+//import com.fasterxml.jackson.databind.node.ArrayNode;
+import javax.inject.Inject;
+
+import play.db.*;
 
 /**
  * This controller contains an action to handle HTTP requests
  * to the application's home page.
  */
 public class StoreController extends Controller {
+
+
+    private static Database db;
+    
+    @Inject
+    public StoreController(Database db){
+        this.db = db;
+    }
+
 
     /**
      * An action that renders an HTML page with a welcome message.
@@ -28,8 +45,28 @@ public class StoreController extends Controller {
     }
 
     public Result getStoreById(String storeid) {
-        return redirect(routes.HomeController.index());
 
+        System.out.println("getStoreById");
+         try {
+        String sstore = StoreService.selectStoreByID(db, storeid);
+        return ok(sstore);
+        //TODO Add Content type Application/Json
+    
+        } catch (java.sql.SQLException sqle){
+            System.out.println(sqle.getMessage());
+            return internalServerError(""+sqle.getMessage());
+        } 
+
+    }
+
+    public Result getAllStoresInJson(){
+        try {
+            JsonNode sstore = StoreService.selectAllStoreJSON(db);
+            return ok(sstore);
+        } catch (java.sql.SQLException sqle){
+            System.out.println(sqle.getMessage());
+            return internalServerError(""+sqle.getMessage());
+        }
     }
 
 

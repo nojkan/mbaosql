@@ -27,8 +27,48 @@ public class Store extends Model {
     public String currency;
     public String merchantkey;
 
-   
+   public String getRef(){
+        return refstore;
+    }
+
+    public void setRef(String ref){
+        this.refstore = ref;
+    }
     
+      public String getName(){
+        return name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+     public String getPicture(){
+        return picture;
+    }
+
+    public void setPicture(String Picture){
+        this.picture = picture;
+    }
+
+    public void setVat(int vat){
+        this.vat = vat;
+    }
+
+    public int getvat(){
+        return vat;
+    }
+
+    public void setCurrency(String currency){
+        this.currency = currency;
+    }
+
+    public String getCurrency(){
+        return currency;
+    } 
+     public void setMerchantkey(String merchantkey){
+        this.merchantkey = merchantkey;
+     }
     
     
    // @ManyToOne
@@ -38,6 +78,16 @@ public class Store extends Model {
      * Generic query helper for entity Computer with id Long
      */
     public static Finder<String,Store> find = new Finder<String,Store>(String.class, Store.class); 
+
+
+
+    public static Map<String,String> options() {
+        LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
+        for(Store c: Store.find.orderBy("name").findList()) {
+            options.put(c.refstore.toString(), c.name);
+        }
+        return options;
+    }
     
     /**
      * Return a page of computer
@@ -58,5 +108,7 @@ public class Store extends Model {
                 .setFetchAhead(false)
                 .getPage(page);
     }*/
+
+
     
 }
