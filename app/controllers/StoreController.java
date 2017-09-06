@@ -42,17 +42,25 @@ public class StoreController extends Controller {
     public Result getAllStores(Integer limit, Integer offset) {
 
         java.util.List<models.Store> stores;
-
+        String start = "";
+        String end = "}";
      
         if (limit != null && offset != null){
             
             stores = new com.avaje.ebean.Model.Finder(String.class, models.Store.class).setMaxRows(limit).setFirstRow(offset).findList();
             //stores = new com.avaje.ebean.Model.Finder(String.class, models.Store.class).findPagedList(offset.intValue(),limit.intValue());
-        
+            start = start + ",\"limit\":"+limit.intValue()+"," +  "\"offset\":"+offset.intValue()+",";
+
         } else {
             stores = new com.avaje.ebean.Model.Finder(String.class, models.Store.class).all();
+            start = ",";
         }
-        return ok(play.libs.Json.toJson(stores));
+
+        int count = new com.avaje.ebean.Model.Finder(String.class, models.Store.class).findRowCount();
+        start = "{ \"count\":" + count + start + "\"data\":";
+        
+
+        return ok(start + play.libs.Json.toJson(stores) + end);
     }
 
     public Result getStoreById(String storeid) {
