@@ -115,14 +115,17 @@ public class StoreService  {
 		String result="vide2";
 		JsonNode jsResult = null;
 		String selectSQL = "";
+		String start="";
+		String end = "}";
 
 		if (limit == null && offset == null){
 
 		 	selectSQL = "SELECT array_to_json(array_agg(row_to_json(STORE))) FROM STORE";
+		 	start = ",";
 
 		} else {
 			System.out.println("offset "+ offset.intValue() + "limit " + limit.intValue());
-
+			start = start + ",\"limit\":"+limit.intValue()+"," +  "\"offset\":"+offset.intValue()+",";
 			//selectSQL = "SELECT row_to_json(STORE) FROM STORE LIMIT " + limit.intValue() + " OFFSET " + offset.intValue();
 			selectSQL = "SELECT row_to_json(STORE) FROM STORE LIMIT " + limit.intValue() + " OFFSET " + offset.intValue()+"";
 				
@@ -167,18 +170,23 @@ public class StoreService  {
 				//resStore.setStock(rs.getStock("stock"));
 
 				//String name = rs.getString("name");*/
+
+				int count = 0;
 			
 			while (rs.next()) {
 
 				System.out.println("testedv");
 
-				
+				count++;
 				result = rs.getString(1);
 				//jsResult = jsResult.add(result);
 
 				System.out.println("rs json : " + result);
 				
 			}
+
+			start = "{ \"count\":" + count + start + "\"data\":";
+
 			} catch (SQLException e) {
 
 			System.out.println(e.getMessage());
@@ -196,7 +204,7 @@ public class StoreService  {
 			
 
 		}
-		return result;
+		return start + result + end;
 	
 	}
 
