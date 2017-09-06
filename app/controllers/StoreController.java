@@ -72,8 +72,10 @@ public class StoreController extends Controller {
 
     public Result getAllStoresInJson(Integer limit, Integer offset){
         try {
-            JsonNode sstore = StoreService.selectAllStoreJSON(db, limit, offset);
+            
+            String sstore = StoreService.selectAllStoreJSON(db, limit, offset);
             return ok(sstore);
+
         } catch (java.sql.SQLException sqle){
             System.out.println(sqle.getMessage());
             return internalServerError(""+sqle.getMessage());

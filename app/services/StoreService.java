@@ -105,7 +105,7 @@ public class StoreService  {
 		}
 
 
-	public static ArrayNode selectAllStoreJSON(Database db, Integer limit, Integer offset) throws SQLException {
+	public static String selectAllStoreJSON(Database db, Integer limit, Integer offset) throws SQLException {
 
 	
 	
@@ -113,17 +113,19 @@ public class StoreService  {
 		Connection dbConnection = null;
 		PreparedStatement preparedStatement = null;
 		String result="vide2";
-		ArrayNode jsResult = null;
+		JsonNode jsResult = null;
 		String selectSQL = "";
 
 		if (limit == null && offset == null){
 
-		 selectSQL = "SELECT row_to_json(STORE) FROM STORE";
+		 	selectSQL = "SELECT array_to_json(array_agg(row_to_json(STORE))) FROM STORE";
 
 		} else {
+			System.out.println("offset "+ offset.intValue() + "limit " + limit.intValue());
 
-			selectSQL = "SELECT row_to_json(STORE) FROM STORE LIMIT " + limit.intValue() + " OFFSET " + offset.intValue();
-			System.out.println("fin get Sconnection");
+			//selectSQL = "SELECT row_to_json(STORE) FROM STORE LIMIT " + limit.intValue() + " OFFSET " + offset.intValue();
+			selectSQL = "SELECT row_to_json(STORE) FROM STORE LIMIT " + limit.intValue() + " OFFSET " + offset.intValue()+"";
+				
 		}
 
 		System.out.println("select sql : " + selectSQL);
@@ -144,7 +146,7 @@ public class StoreService  {
 			 //ArrayNode jsResult = Json.newArray();
 			//ObjectMapper mapper = new  ObjectMapper();
 			//jsResult = mapper.createArrayNode();
-			jsResult = Json.newArray();
+			//jsResult = Json.newArray();
 		
 
 			
@@ -152,22 +154,27 @@ public class StoreService  {
 
 			 ResultSet rs = preparedStatement.executeQuery();
 
+			 System.out.println("resultSet as array " + rs);
+
+			 //jsResult = Json.newArray();
+			 //jsResult = Json.toJson(rs);
 
 
-			
-			while (rs.next()) {
-
-				System.out.println("testedv");
-
-				/*resStore = new Store();
+			/*resStore = new Store();
 				resStore.setRef(rs.getString("refstore"));
 				resStore.setName(rs.getString("name"));
 				resStore.setPicture(rs.getString("creationdate"));
 				//resStore.setStock(rs.getStock("stock"));
 
 				//String name = rs.getString("name");*/
+			
+			while (rs.next()) {
+
+				System.out.println("testedv");
+
+				
 				result = rs.getString(1);
-				jsResult = jsResult.add(result);
+				//jsResult = jsResult.add(result);
 
 				System.out.println("rs json : " + result);
 				
@@ -189,7 +196,7 @@ public class StoreService  {
 			
 
 		}
-		return jsResult;
+		return result;
 	
 	}
 

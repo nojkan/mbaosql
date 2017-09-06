@@ -55,7 +55,7 @@ public class Store extends Model {
         this.vat = vat;
     }
 
-    public int getvat(){
+    public int getVat(){
         return vat;
     }
 
