@@ -27,6 +27,9 @@ public class Store extends Model {
     public String currency;
     public String merchantkey;
 
+   // @ManyToOne
+   // public Stock stock;
+
    public String getRef(){
         return refstore;
     }

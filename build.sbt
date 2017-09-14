@@ -2,7 +2,7 @@ import com.typesafe.config.ConfigFactory
 import com.typesafe.sbt.packager.docker._
 
 
-name := """mbao"""
+name := """mbaosql"""
 
 version := "1.0-SNAPSHOT"
 

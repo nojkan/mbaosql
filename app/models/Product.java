@@ -32,9 +32,12 @@ public class Product extends Model {
     @Column(name="picture")
     public String picture;
 
-    @Formats.DateTime(pattern="yyyy.MM.dd")
+    @Formats.DateTime(pattern="yyyy-MM-dd")
     @Column(name="creationdate")
     public Date creationdate;
+
+   // @ManyToOne
+    //public Stock stock;
 
 
     public String getRef(){
